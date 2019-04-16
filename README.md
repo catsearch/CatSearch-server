@@ -6,8 +6,8 @@ Developed by Cooper Barth, Michael Ji, and Beth Mallon.
 Developed through Northwestern's EECS 330: Human Computer Interaction.
 
 
-To run locally:
+To run locally (not running yet):
 
-npm install
+-npm install
 
-npm run dev
+-npm run dev
