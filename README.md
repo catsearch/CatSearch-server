@@ -5,5 +5,8 @@ Developed by Cooper Barth, Michael Ji, and Beth Mallon.
 
 
 ## Build Instructions: (NOTE: Not running yet.)
-1. npm install
-2. npm run dev
+1. Add your user account to Atlas
+2. Whitelist your IP through Altas
+3. Make sure you add your account info into <i>secret.js</i> ;)
+4. npm install
+5. npm run dev
