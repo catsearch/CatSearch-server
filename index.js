@@ -14,7 +14,6 @@ app.use(function(req, res, next) {
 
 const env = "" + process.env.NODE_ENV;
 const config = require('./config/db')["dev" || env];
-console.log(config);
 
 mongoose.connect(config.database, { useNewUrlParser: true });
 
