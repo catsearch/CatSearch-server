@@ -6,4 +6,5 @@ Developed by Cooper Barth, Michael Ji, and Beth Mallon.
 
 ## Build Instructions: (NOTE: Not running yet.)
 1. npm install
-2. npm run dev
+2. Make sure you have the necessary info in your secret.js ;)
+3. npm run dev
