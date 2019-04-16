@@ -1,7 +1,7 @@
 {
   "name": "catsearch",
   "version": "1.0.0",
-  "description": "f",
+  "description": "A platform to enable Northwestern students to search for roommates.",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -23,7 +23,7 @@
     "catsearch"
   ],
   "author": "Cooper Barth",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cooperbarth/CatSearch/issues"
   },
