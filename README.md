@@ -9,5 +9,5 @@ Developed by Cooper Barth, Michael Ji, and Beth Mallon.
 2. Install Node.js (https://nodejs.org/en/download/)
 3. Add your user account & Whitelist your IP through Atlas
 4. Make sure you add your account info into <i>secret.js</i> ;)
-5. npm install
-6. npm run dev
+5. `npm install`
+6. `npm run dev`
