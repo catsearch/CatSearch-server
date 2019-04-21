@@ -3,13 +3,14 @@ const User = require('../models/User');
 const UserInfo = require('../models/UserInfo');
 
 const router = express.Router();
+const hash = require('../scripts/hash');
 
 router.route('/')
-    .get(function(req, res) {
+    .get((req, res) => {
         console.log("GET /users");
         User.find()
             .sort('firstname')
-            .exec(function(err, users) {
+            .exec((err, users) => {
                 if (err) {
                     console.log("Error retrieving users from database.")
                     res.send(err);
@@ -19,21 +20,20 @@ router.route('/')
                 }
             })
     })
-    .post(function(req, res) {
+    .post((req, res) => {
         console.log("POST /users");
-
-        const salt = "ksjdfhskdjbkvjshdsjdhvbsdkjfsdkf" //should be randomly generated
 
         let user = new User();
         user.username = req.body.username;
-        user.salt = salt;
-        user.hashedPw = req.body.password + salt; //implement hashing algorithm
+        const hashResult = hash(req.body.password);
+        user.salt = hashResult["salt"];
+        user.hashedPw = hashResult["hash"];
         user.email = req.body.email;
 
         let userInfo = new UserInfo();
         user.userInfo = userInfo;
 
-        user.save(function(err, response) {
+        user.save((err, response) => {
             if (err) {
                 console.log("Error adding user " + user.username);
                 res.send(err);
@@ -42,14 +42,27 @@ router.route('/')
                 res.send(response);
             }
         });
-    });
+    })
+    .delete((req, res) => {
+        console.log("DELETE /users");
+        User.deleteMany()
+            .exec((err, users) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send("Goodbye, everyone!");
+                }
+            })
+    })
 
 router.route('/:id')
-    .get(function(req, res) {
+    .get((req, res) => {
         const id = req.params["id"];
+        console.log("GET /users/" + id);
+
         User.find({_id: id})
             .sort('firstname')
-            .exec(function(err, user) {
+            .exec((err, user) => {
                 if (err) {
                     console.log("Error " + err + "retrieving user " + user + ".");
                     res.send(err);
@@ -58,10 +71,12 @@ router.route('/:id')
                 }
             })
     })
-    .delete(function(req, res) {
+    .delete((req, res) => {
         const id = req.params["id"];
+        console.log("DELETE /users/" + id);
+
         User.deleteOne({_id: id})
-            .exec(function(err, user) {
+            .exec((err, user) => {
                 if (err) {
                     console.log("Error " + err + "removing user " + user + ".");
                     res.send(err);
