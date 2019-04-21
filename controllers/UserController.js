@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/User');
 const UserInfo = require('../models/UserInfo');
+const path = require('path');
 
 const router = express.Router();
 const hash = require('../scripts/hash');
@@ -33,13 +34,13 @@ router.route('/')
         let userInfo = new UserInfo();
         user.userInfo = userInfo;
 
-        user.save((err, response) => {
+        user.save((err, user) => {
             if (err) {
                 console.log("Error adding user " + user.username);
                 res.send(err);
             } else {
-                console.log(response);
-                res.send(response);
+                console.log("User " + user.username + " added.");
+                res.sendFile('login.html', {root: path.join(__dirname, '../screens/login/')});
             }
         });
     })
