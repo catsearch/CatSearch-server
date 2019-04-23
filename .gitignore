@@ -61,4 +61,4 @@ typings/
 .next
 
 # username/password info
-secret.js
+#secret.js
