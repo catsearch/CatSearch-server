@@ -21,10 +21,7 @@ console.log(config);
 mongoose.connect(config.database, { useNewUrlParser: true });
 
 const UserController = require('./controllers/UserController');
-const UserInfoController = require('./controllers/UserInfoController');
-
 app.use('/users', UserController);
-app.use('/userinfo', UserInfoController);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
