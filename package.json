@@ -19,7 +19,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "NODE_ENV=dev node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
