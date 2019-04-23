@@ -2,9 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const UserInfo = require('../models/UserInfo');
 const path = require('path');
-
 const router = express.Router();
-const hash = require('../scripts/hash');
 
 router.route('/')
     .get((req, res) => {
@@ -20,29 +18,6 @@ router.route('/')
                     res.send(users);
                 }
             })
-    })
-    .post((req, res) => {
-        console.log("POST /users");
-
-        let user = new User();
-        user.username = req.body.username;
-        const hashResult = hash(req.body.password);
-        user.salt = hashResult["salt"];
-        user.hashedPw = hashResult["hash"];
-        user.email = req.body.email;
-
-        let userInfo = new UserInfo();
-        user.userInfo = userInfo;
-
-        user.save((err, user) => {
-            if (err) {
-                console.log("Error adding user " + user.username);
-                res.send(err);
-            } else {
-                console.log("User " + user.username + " added.");
-                res.sendFile('login.html', {root: path.join(__dirname, '../screens/login/')});
-            }
-        });
     })
     .delete((req, res) => {
         console.log("DELETE /users");
