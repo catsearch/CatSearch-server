@@ -56,7 +56,6 @@ const localConfig = (passport) => {
             }
 
             process.nextTick(function() {
-                // if the user is not already logged in:
                 if (!req.user) {
                     return createUser(new User(), email, password, done);
                 // check if the email used to connect a local account is being used by another user

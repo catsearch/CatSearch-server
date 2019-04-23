@@ -4,13 +4,21 @@ const passport = require('passport');
 
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/auth/profile',
-    failureRedirect : 'auth/signup'
+    failureRedirect : '/auth/signupFailed'
 }));
 
 router.post('/login', passport.authenticate('local-login', {
     successRedirect : '/auth/profile',
-    failureRedirect : 'auth/login'
+    failureRedirect : '/auth/loginFailed'
 }));
+
+router.get('/signupFailed', (req, res) => {
+    res.send("Signup Failed")
+})
+
+router.get('/loginFailed', (req, res) => {
+    res.send("Login Failed")
+})
 
 router.get('/profile', isLoggedIn, (req, res) => {
     res.status(200).json(req.user);
@@ -19,7 +27,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
     res.status(200).json({
-        'message': 'successfully logout'
+        'message': 'User Logged Out.'
     });
 });
 
@@ -29,6 +37,6 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.status(400).json({
-        'message': 'access denied'
+        'message': 'Access Denied.'
     });
 }
