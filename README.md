@@ -8,7 +8,7 @@ This is the server-side code for CatSearch, written in Node.js, Express, and Mon
 3. Add your user account & Whitelist your IP through Atlas
 4. Move `secret.js` to your working directory and add your account info
 5. `npm install`
-6. `npm run dev`
+6. `npm start`
 
 -Client code: https://github.com/catsearch/CatSearch-client
 
