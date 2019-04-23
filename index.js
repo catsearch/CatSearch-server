@@ -35,11 +35,9 @@ app.use(passport.session());
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 const testRoutes = require('./routes/test');
-const otherRoutes = require('./routes/other');
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/test', testRoutes);
-app.use('/', otherRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
