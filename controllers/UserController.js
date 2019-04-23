@@ -2,9 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const UserInfo = require('../models/UserInfo');
 const path = require('path');
-
 const router = express.Router();
-const hash = require('../scripts/hash');
 
 router.route('/')
     .get((req, res) => {
@@ -25,10 +23,9 @@ router.route('/')
         console.log("POST /users");
 
         let user = new User();
-        user.username = req.body.username;
-        const hashResult = hash(req.body.password);
-        user.salt = hashResult["salt"];
-        user.hashedPw = hashResult["hash"];
+        user.firstname = req.body.firstname;
+        user.lastname = req.body.lastname;
+        user.setPassword(req.body.password);
         user.email = req.body.email;
 
         let userInfo = new UserInfo();
@@ -56,7 +53,7 @@ router.route('/')
             })
     })
 
-router.route('/:id')
+router.route('/:username')
     .get((req, res) => {
         const id = req.params["id"];
         console.log("GET /users/" + id);
