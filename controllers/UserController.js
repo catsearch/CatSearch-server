@@ -23,6 +23,7 @@ router.route('/')
         console.log("POST /users");
 
         let user = new User();
+        console.log(req.body.firstname);
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
         user.setPassword(req.body.password);
@@ -33,10 +34,10 @@ router.route('/')
 
         user.save((err, user) => {
             if (err) {
-                console.log("Error adding user " + user.username);
+                console.log(`Error adding user ${user.firstname} ${user.lastname}`);
                 res.send(err);
             } else {
-                console.log("User " + user.username + " added.");
+                console.log(`User ${user.firstname} ${user.lastname} added.`);
                 res.sendFile('login.html', {root: path.join(__dirname, '../screens/login/')});
             }
         });
@@ -53,7 +54,26 @@ router.route('/')
             })
     })
 
-router.route('/:username')
+router.route('/login')
+    .post((req, res) => {
+        const email = req.body.email;
+        console.log(email, req.body.password);
+        User.findOne({email: email})
+            .exec((err, user) => {
+                if (err) {
+                    console.log("Error " + err + "retrieving user " + user + ".");
+                    res.send(err);
+                } else if (user === null) {
+                    res.send(`User with email ${email} does not exist.`);
+                } else if (!user.validatePassword(req.body.password)) {
+                    res.send("Invalid Password.");
+                } else {
+                    res.send(`User ${user.firstname + ' ' + user.lastname} logged in!`);
+                }
+            })
+    })
+
+router.route('/:id')
     .get((req, res) => {
         const id = req.params["id"];
         console.log("GET /users/" + id);

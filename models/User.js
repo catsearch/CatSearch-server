@@ -19,7 +19,7 @@ UserSchema.methods.setPassword = function(password) {
 }
 
 UserSchema.methods.validatePassword = function(password) {
-    return this.hash === generateHash(password);
+    return this.hash === generateHash(password, this.salt);
 }
 
 module.exports = mongoose.model('User', UserSchema);

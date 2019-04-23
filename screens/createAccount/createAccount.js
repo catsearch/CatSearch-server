@@ -5,7 +5,6 @@ const email = document.getElementById("email");
 const errorText = document.getElementById("errorText");
 
 function hideErrorText() {
-    console.log("hi");
     errorText.style.display = 'none';
 }
 
