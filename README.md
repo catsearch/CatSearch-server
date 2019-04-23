@@ -11,3 +11,6 @@ Developed by Cooper Barth, Michael Ji, and Beth Mallon.
 4. Move `secret.js` to your working directory and add your account info
 5. `npm install`
 6. `npm run dev`
+
+Notes:
+-Credit to https://bit.ly/2W19gpt for passport.js tutorial.
