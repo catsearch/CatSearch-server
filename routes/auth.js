@@ -9,7 +9,6 @@ router.route('/createAccount')
 
         User.findOne({email: email})
             .exec((err, user) => {
-                console.log(user)
                 if (err) {
                     res.send({
                         success: false,
