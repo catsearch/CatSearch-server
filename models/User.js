@@ -3,10 +3,8 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
 const UserSchema = new Schema({
-    local: {
-        email: String,
-        password: String,
-    },
+    email: String,
+    password: String,
     firstname: String,
     lastname: String,
     hash: String,
@@ -15,12 +13,12 @@ const UserSchema = new Schema({
 
 // generating a hash
 UserSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // Checking for matching password
-UserSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+UserSchema.methods.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model('User', UserSchema);
