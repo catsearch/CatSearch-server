@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-app.set('view engine', 'html');
-
 const env = "" + process.env.NODE_ENV;
 const config = require('./config/db')["dev" || env];
 mongoose.connect(config.database, { useNewUrlParser: true });

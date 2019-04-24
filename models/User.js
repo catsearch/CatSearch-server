@@ -7,7 +7,6 @@ const UserSchema = new Schema({
     password: String,
     firstname: String,
     lastname: String,
-    hash: String,
     userInfo: {type: Schema.Types.ObjectId, ref: 'UserInfo'},
 });
 

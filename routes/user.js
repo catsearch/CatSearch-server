@@ -34,8 +34,7 @@ router.route('/:id')
         const id = req.params["id"];
         console.log("GET /user/" + id);
 
-        User.find({_id: id})
-            .sort('firstname')
+        User.findOne({_id: id})
             .exec((err, user) => {
                 if (err) {
                     console.log("Error " + err + "retrieving user " + user + ".");

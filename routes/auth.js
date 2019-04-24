@@ -26,18 +26,26 @@ router.route('/login')
         User.findOne({email: email})
             .exec((err, user) => {
                 if (err) {
-                    res.send(err);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
                 } else if (!user) {
-                    console.log(`No user with email ${email}.`);
-                    res.send(`No user with email ${email}.`);
+                    res.send({
+                        success: false,
+                        message: `No user with email ${email}.`
+                    });
                 } else {
-                    console.log(req.body);
                     if (user.validatePassword(req.body.password)) {
-                        console.log(`User logged in!`);
-                        res.send(`User logged in!`);
+                        res.send({
+                            success: true,
+                            message: `User logged in!`
+                        });
                     } else {
-                        console.log('Incorrect password.')
-                        res.send(`Incorrect password.`);
+                        res.send({
+                            success: false,
+                            message: `Incorrect password.`
+                        });
                     }
                 }
             })
