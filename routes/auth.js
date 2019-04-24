@@ -5,17 +5,41 @@ const User = require('../models/User');
 router.route('/createAccount')
     .post((req, res) => {
         console.log("POST /user");
-        const newUser = new User();
-        newUser.email = req.body.email;
-        newUser.generateHash(req.body.password);
-        newUser.save((err, user) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log(user);
-                res.send(user);
-            }
-        });
+        const email = req.body.email;
+
+        User.findOne({email: email})
+            .exec((err, user) => {
+                console.log(user)
+                if (err) {
+                    res.send({
+                        success: false,
+                        message: err
+                    })
+                } else if (user) {
+                    res.send({
+                        success: false,
+                        message: `User with email ${email} already exists.`
+                    })
+                } else {
+                    const newUser = new User();
+                    newUser.email = req.body.email;
+                    newUser.generateHash(req.body.password);
+                    newUser.save((err, user) => {
+                        if (err) {
+                            res.send({
+                                success: false,
+                                message: err
+                            });
+                        } else {
+                            res.send({
+                                success: true,
+                                message: `Account Created!`
+                            });
+                        }
+                    });
+                }
+            })
+        
     })
 
 router.route('/login')
