@@ -19,7 +19,10 @@ app.use(function(req, res, next) {
 });
 
 const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
+
 app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);

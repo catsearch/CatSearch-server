@@ -1,11 +1,10 @@
 const express = require('express');
-const User = require('../models/User');
-const UserInfo = require('../models/UserInfo');
 const router = express.Router();
+const User = require('../models/User');
 
 router.route('/')
     .get((req, res) => {
-        console.log("GET /users");
+        console.log("GET /user");
         User.find()
             .sort('firstname')
             .exec((err, users) => {
@@ -18,22 +17,8 @@ router.route('/')
                 }
             })
     })
-    .post((req, res) => {
-        console.log("POST /users");
-        const newUser = new User();
-        newUser.email = req.body.email;
-        newUser.generateHash(req.body.password);
-        newUser.save((err, user) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log(user);
-                res.send(user);
-            }
-        });
-    })
     .delete((req, res) => {
-        console.log("DELETE /users");
+        console.log("DELETE /user");
         User.deleteMany()
             .exec((err, users) => {
                 if (err) {
@@ -47,7 +32,7 @@ router.route('/')
 router.route('/:id')
     .get((req, res) => {
         const id = req.params["id"];
-        console.log("GET /users/" + id);
+        console.log("GET /user/" + id);
 
         User.find({_id: id})
             .sort('firstname')
@@ -62,7 +47,7 @@ router.route('/:id')
     })
     .delete((req, res) => {
         const id = req.params["id"];
-        console.log("DELETE /users/" + id);
+        console.log("DELETE /user/" + id);
 
         User.deleteOne({_id: id})
             .exec((err, user) => {
