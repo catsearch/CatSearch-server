@@ -18,6 +18,20 @@ router.route('/')
                 }
             })
     })
+    .post((req, res) => {
+        console.log("POST /users");
+        const newUser = new User();
+        newUser.email = req.body.email;
+        newUser.generateHash(req.body.password);
+        newUser.save((err, user) => {
+            if (err) {
+                res.send(err);
+            } else {
+                console.log(user);
+                res.send(user);
+            }
+        });
+    })
     .delete((req, res) => {
         console.log("DELETE /users");
         User.deleteMany()
