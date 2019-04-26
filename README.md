@@ -1,6 +1,8 @@
 # CatSearch-server
 This is the server-side code for CatSearch, written in Node.js, Express, and MongoDB.
 
+Client: https://github.com/catsearch/CatSearch-client
+
 
 ## Build Instructions:
 1. git clone `https://github.com/cooperbarth/CatSearch.git`
@@ -9,5 +11,3 @@ This is the server-side code for CatSearch, written in Node.js, Express, and Mon
 4. Move `secret.js` to your working directory and add your account info
 5. `npm install`
 6. `npm start`
-
-Client: https://github.com/catsearch/CatSearch-client
