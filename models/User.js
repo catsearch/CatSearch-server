@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     firstname: String,
     lastname: String,
     userInfo: {type: Schema.Types.ObjectId, ref: 'UserInfo'},
+    signupDate: Date,
 });
 
 // generating a hash

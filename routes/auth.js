@@ -23,6 +23,7 @@ router.route('/createAccount')
                     const newUser = new User();
                     newUser.email = req.body.email;
                     newUser.generateHash(req.body.password);
+                    newUser.signupDate = Date();
                     newUser.save((err, user) => {
                         if (err) {
                             res.send({
