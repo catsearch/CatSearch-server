@@ -10,6 +10,4 @@ This is the server-side code for CatSearch, written in Node.js, Express, and Mon
 5. `npm install`
 6. `npm start`
 
--Client code: https://github.com/catsearch/CatSearch-client
-
-Credit to https://bit.ly/2W19gpt for passport.js tutorial.
+Client: https://github.com/catsearch/CatSearch-client
