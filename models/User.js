@@ -7,8 +7,18 @@ const UserSchema = new Schema({
     password: String,
     firstname: String,
     lastname: String,
-    userInfo: {type: Schema.Types.ObjectId, ref: 'UserInfo'},
     signupDate: Date,
+    gender: String,
+    year: String,
+    major: String,
+    northSouth: String,
+    sleep: String,
+    wake: String,
+    smoke: Boolean,
+    cleanliness: String,
+    music: Boolean,
+    notes: String,
+    searching: Boolean
 });
 
 // generating a hash
