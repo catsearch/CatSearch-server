@@ -22,6 +22,9 @@ router.route('/createAccount')
                 } else {
                     const newUser = new User();
                     newUser.email = req.body.email;
+                    newUser.firstName = req.body.firstName;
+                    newUser.lastName = req.body.lastName;
+                    //add more fields
                     newUser.generateHash(req.body.password);
                     newUser.signupDate = Date();
                     newUser.searching = true;
@@ -64,7 +67,7 @@ router.route('/login')
                     if (user.validatePassword(req.body.password)) {
                         res.send({
                             success: true,
-                            message: `User logged in!`
+                            _id: user._id
                         });
                     } else {
                         res.send({

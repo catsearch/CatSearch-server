@@ -69,9 +69,15 @@ router.route('/:id/others')
             .exec((err, users) => {
                 if (err) {
                     console.log("Error in GET /:id/others.");
-                    res.send(err);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
                 } else {
-                    res.send(users);
+                    res.send({
+                        success: true,
+                        users: users
+                    });
                 }
             })
     })
