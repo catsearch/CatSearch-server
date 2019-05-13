@@ -5,17 +5,45 @@ const User = require('../models/User');
 router.route('/createAccount')
     .post((req, res) => {
         console.log("POST /user");
-        const newUser = new User();
-        newUser.email = req.body.email;
-        newUser.generateHash(req.body.password);
-        newUser.save((err, user) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log(user);
-                res.send(user);
-            }
-        });
+        const email = req.body.email;
+
+        User.findOne({email: email})
+            .exec((err, user) => {
+                if (err) {
+                    res.send({
+                        success: false,
+                        message: err
+                    })
+                } else if (user) {
+                    res.send({
+                        success: false,
+                        message: `User with email ${email} already exists.`
+                    })
+                } else {
+                    const newUser = new User();
+                    newUser.email = req.body.email;
+                    newUser.firstName = req.body.firstName;
+                    newUser.lastName = req.body.lastName;
+                    //add more fields
+                    newUser.generateHash(req.body.password);
+                    newUser.signupDate = Date();
+                    newUser.searching = true;
+                    newUser.save((err, user) => {
+                        if (err) {
+                            res.send({
+                                success: false,
+                                message: err
+                            });
+                        } else {
+                            res.send({
+                                success: true,
+                                message: `Account Created!`
+                            });
+                        }
+                    });
+                }
+            })
+        
     })
 
 router.route('/login')
@@ -26,18 +54,26 @@ router.route('/login')
         User.findOne({email: email})
             .exec((err, user) => {
                 if (err) {
-                    res.send(err);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
                 } else if (!user) {
-                    console.log(`No user with email ${email}.`);
-                    res.send(`No user with email ${email}.`);
+                    res.send({
+                        success: false,
+                        message: `No user with email ${email}.`
+                    });
                 } else {
-                    console.log(req.body);
                     if (user.validatePassword(req.body.password)) {
-                        console.log(`User logged in!`);
-                        res.send(`User logged in!`);
+                        res.send({
+                            success: true,
+                            _id: user._id
+                        });
                     } else {
-                        console.log('Incorrect password.')
-                        res.send(`Incorrect password.`);
+                        res.send({
+                            success: false,
+                            message: `Incorrect password.`
+                        });
                     }
                 }
             })

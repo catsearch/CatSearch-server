@@ -5,10 +5,21 @@ const bcrypt = require('bcrypt-nodejs');
 const UserSchema = new Schema({
     email: String,
     password: String,
-    firstname: String,
-    lastname: String,
-    hash: String,
-    userInfo: {type: Schema.Types.ObjectId, ref: 'UserInfo'},
+    firstName: String,
+    lastName: String,
+    signupDate: Date,
+    gender: String,
+    year: String,
+    major: String,
+    northSouth: String,
+    sleep: String,
+    wake: String,
+    smoke: Boolean,
+    cleanliness: String,
+    music: Boolean,
+    blurb: String,
+    picUrl: String,
+    searching: Boolean
 });
 
 // generating a hash
