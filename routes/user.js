@@ -38,9 +38,15 @@ router.route('/:id')
             .exec((err, user) => {
                 if (err) {
                     console.log("Error " + err + "retrieving user " + user + ".");
-                    res.send(err);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
                 } else {
-                    res.send(user);
+                    res.send({
+                        success: true,
+                        user: user
+                    });
                 }
             })
     })
