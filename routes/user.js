@@ -104,6 +104,52 @@ router.route('/:id/filter')
 
         User.find(query)
             .sort('signupDate')
+            .exec((err, users) => {
+                if (err) {
+                    console.log(`Error in POST /:${id}/filter`);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
+                } else {
+                    res.send({
+                        success: true,
+                        users: users
+                    });
+                }
+            })
+    })
+
+router.route('/:id/search')
+    .post((req, res) => {
+        console.log("POST /:id/search");
+        const id = req.params["id"];
+        const searchQuery = new RegExp(`/.*${req.body.text}.*/i`);
+
+        let query = {
+            _id: {$ne: id},
+            $or: [
+                {firstName: "Michael"},
+            ],
+            searching: true, //can't find people that aren't searching
+        }
+
+        User.find(query)
+            .sort('signupDate')
+            .exec((err, users) => {
+                if (err) {
+                    console.log(`Error in POST /:${id}/search`);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
+                } else {
+                    res.send({
+                        success: true,
+                        users: users
+                    });
+                }
+            })
     })
 
 module.exports = router;
