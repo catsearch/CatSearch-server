@@ -124,14 +124,16 @@ router.route('/:id/search')
     .post((req, res) => {
         console.log("POST /:id/search");
         const id = req.params["id"];
-        const searchQuery = new RegExp(`/.*${req.body.text}.*/i`);
+        console.log(req.body.text)
 
         let query = {
             _id: {$ne: id},
             $or: [
-                {firstName: "Michael"},
+                {firstName: {'$regex': req.body.text, '$options' : 'i'}},
+                {lastName: {'$regex': req.body.text, '$options' : 'i'}},
+                {blurb: {'$regex': req.body.text, '$options' : 'i'}}
             ],
-            searching: true, //can't find people that aren't searching
+            searching: true
         }
 
         User.find(query)
