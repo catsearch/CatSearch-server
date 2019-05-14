@@ -10,10 +10,16 @@ router.route('/')
             .exec((err, users) => {
                 if (err) {
                     console.log("Error retrieving users from database.")
-                    res.send(err);
+                    res.send({
+                        success: false,
+                        message: err
+                    });
                 } else {
                     console.log(users);
-                    res.send(users);
+                    res.send({
+                        success: true,
+                        users: users
+                    });
                 }
             })
     })
