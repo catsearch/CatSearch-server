@@ -101,18 +101,29 @@ router.route('/:id/filter')
 
         let query = {
             _id: {$ne: id},
+            male: req.body.male,
+            female: req.body.female,
+            other: req.body.other,
+            bienen: req.body.bienen,
+            mccormick: req.body.mccormick,
+            medill: req.body.medill,
+            sesp: req.body.sesp,
+            soc: req.body.soc,
+            wcas: req.body.wcas,
+            north: req.body.north,
+            mid: req.body.mid,
+            south: req.body.south,
+            high: req.body.high,
+            medium: req.body.medium,
+            low: req.body.low,
+            smoking: req.body.smoking,
+            no: req.body.no,
+            often: req.body.often,
+            sometimes: req.body.sometimes,
+            never: req.body.never,
+            //bedtime and wakeup
             searching: true, //can't find people that aren't searching
         }
-        
-        if (req.body.gender) {query.gender = req.body.gender;}
-        if (req.body.year) {query.year = req.body.year;}
-        if (req.body.major) {query.major = req.body.major;}
-        if (req.body.northSouth) {query.northSouth = req.body.northSouth;}
-        if (req.body.sleep) {query.sleep = req.body.sleep;}
-        if (req.body.wake) {query.wake = req.body.wake;}
-        if (req.body.smoke) {query.smoke = req.body.smoke;}
-        if (req.body.cleanliness) {query.cleanliness = req.body.cleanliness;}
-        if (req.body.music) {query.music = req.body.music;}
 
         User.find(query)
             .sort('signupDate')
@@ -124,6 +135,7 @@ router.route('/:id/filter')
                         message: err
                     });
                 } else {
+                    console.log(users)
                     res.send({
                         success: true,
                         users: users
