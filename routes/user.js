@@ -99,31 +99,53 @@ router.route('/:id/filter')
         console.log("POST /:id/filter");
         const id = req.params["id"];
 
+        //in each grouping, filter OR by only TRUE results
+        let genderFilters = [];
+        if (req.body.male) {genderFilters.push({male: req.body.male})};
+        if (req.body.female) {genderFilters.push({female: req.body.female})};
+        if (req.body.other) {genderFilters.push({other: req.body.other})};
+
+        let schoolFilters = [];
+        if (req.body.bienen) {schoolFilters.push({bienen: req.body.bienen})};
+        if (req.body.mccormick) {schoolFilters.push({mccormick: req.body.mccormick})};
+        if (req.body.medill) {schoolFilters.push({medill: req.body.medill})};
+        if (req.body.sesp) {schoolFilters.push({sesp: req.body.sesp})};
+        if (req.body.soc) {schoolFilters.push({soc: req.body.soc})};
+        if (req.body.wcas) {schoolFilters.push({wcas: req.body.wcas})};
+
+        let locationFilters = [];
+        if (req.body.north) {locationFilters.push({north: req.body.north})};
+        if (req.body.mid) {locationFilters.push({mid: req.body.mid})};
+        if (req.body.south) {locationFilters.push({south: req.body.south})};
+
+        let cleanFilters = [];
+        if (req.body.high) {cleanFilters.push({high: req.body.high})};
+        if (req.body.medium) {cleanFilters.push({medium: req.body.medium})};
+        if (req.body.low) {cleanFilters.push({low: req.body.low})};
+
+        let smokingFilters = [];
+        if (req.body.smoking) {smokingFilters.push({smoking: req.body.smoking})};
+        if (req.body.no) {smokingFilters.push({no: req.body.no})};
+
+        let musicFilters = [];
+        if (req.body.often) {musicFilters.push({often: req.body.often})};
+        if (req.body.sometimes) {musicFilters.push({sometimes: req.body.sometimes})};
+        if (req.body.never) {musicFilters.push({never: req.body.never})};
+
+        let andQuery = [];
+        if (genderFilters.length > 0) {andQuery.push({$or: genderFilters})};
+        if (schoolFilters.length > 0) {andQuery.push({$or: schoolFilters})};
+        if (locationFilters.length > 0) {andQuery.push({$or: locationFilters})};
+        if (cleanFilters.length > 0) {andQuery.push({$or: cleanFilters})};
+        if (smokingFilters.length > 0) {andQuery.push({$or: smokingFilters})};
+        if (musicFilters.length > 0) {andQuery.push({$or: musicFilters})};
+
         let query = {
-            _id: {$ne: id},
-            male: req.body.male,
-            female: req.body.female,
-            other: req.body.other,
-            bienen: req.body.bienen,
-            mccormick: req.body.mccormick,
-            medill: req.body.medill,
-            sesp: req.body.sesp,
-            soc: req.body.soc,
-            wcas: req.body.wcas,
-            north: req.body.north,
-            mid: req.body.mid,
-            south: req.body.south,
-            high: req.body.high,
-            medium: req.body.medium,
-            low: req.body.low,
-            smoking: req.body.smoking,
-            no: req.body.no,
-            often: req.body.often,
-            sometimes: req.body.sometimes,
-            never: req.body.never,
-            //bedtime and wakeup
+            //bedtime and wakeup filters
             searching: true, //can't find people that aren't searching
         }
+        if (andQuery.length > 0) {query.$and = andQuery};
+        if (id !== "null") {query._id = {$ne: id};}
 
         User.find(query)
             .sort('signupDate')
@@ -135,7 +157,6 @@ router.route('/:id/filter')
                         message: err
                     });
                 } else {
-                    console.log(users)
                     res.send({
                         success: true,
                         users: users
