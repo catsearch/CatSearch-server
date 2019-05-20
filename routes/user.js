@@ -141,12 +141,14 @@ router.route('/:id/filter')
         if (musicFilters.length > 0) {andQuery.push({$or: musicFilters})};
 
         let query = {
-            //bedtime and wakeup filters
+            //add bedtime and wakeup filters
             searching: true, //can't find people that aren't searching
         }
         if (andQuery.length > 0) {query.$and = andQuery};
-        if (id !== "null") {query._id = {$ne: id};}
+        if (req.body.year) {query.year = req.body.year};
+        if (id !== null && id !== "null") {query._id = {$ne: id}};
 
+        console.log(query)
         User.find(query)
             .sort('signupDate')
             .exec((err, users) => {

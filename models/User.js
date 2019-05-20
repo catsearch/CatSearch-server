@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     blurb: String,
     picUrl: String,
     searching: Boolean,
+    year: String,
     male: Boolean,
     female: Boolean,
     other: Boolean,
