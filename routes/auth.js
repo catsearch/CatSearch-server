@@ -24,7 +24,27 @@ router.route('/createAccount')
                     newUser.email = req.body.email;
                     newUser.firstName = req.body.firstName;
                     newUser.lastName = req.body.lastName;
-                    //add more fields
+                    newUser.year = "";
+                    newUser.male = false;
+                    newUser.female = false;
+                    newUser.other = false;
+                    newUser.bienen = false;
+                    newUser.mccormick = false;
+                    newUser.medill = false;
+                    newUser.sesp = false;
+                    newUser.soc = false;
+                    newUser.wcas = false;
+                    newUser.north = false;
+                    newUser.mid = false;
+                    newUser.south = false;
+                    newUser.high = false;
+                    newUser.medium = false;
+                    newUser.low = false;
+                    newUser.smoking = false;
+                    newUser.no = false;
+                    newUser.often = false;
+                    newUser.sometimes = false;
+                    newUser.never = false;
                     newUser.generateHash(req.body.password);
                     newUser.signupDate = Date();
                     newUser.searching = true;
