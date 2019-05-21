@@ -167,6 +167,48 @@ router.route('/:id/filter')
             })
     })
 
+router.route('/:id/saveUser')
+    .patch((req,res) => {
+        console.log("PATCH /:id/saveUser")
+        User.findOne({_id: id})
+            .exec((err, users) => {
+                if (err) {
+                    console.log("Error in PATCH /:id/saveUser.");
+                    res.send({
+                        success: false,
+                        message: err
+                    });
+                } else {
+                    res.send({
+                        success: true,
+                    });
+                    users.savedUsers.push(req.body.id);
+                }
+            })
+    })
+
+router.route('/:id/removeUser')
+.patch((req,res) => {
+    console.log("PATCH /:id/removeUser")
+    User.findOne({_id: id})
+        .exec((err, users) => {
+            if (err) {
+                console.log("Error in PATCH /:id/removeUser.");
+                res.send({
+                    success: false,
+                    message: err
+                });
+            } else {
+                res.send({
+                    success: true,
+                });
+                users.savedUsers.filter(function(value,index,arr){
+                    return value === req.body.id;
+                });
+            }
+        })
+})
+
 router.route('/:id/search')
     .post((req, res) => {
         console.log("POST /:id/search");
