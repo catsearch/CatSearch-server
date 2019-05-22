@@ -24,7 +24,9 @@ router.route('/createAccount')
                     newUser.email = req.body.email;
                     newUser.firstName = req.body.firstName;
                     newUser.lastName = req.body.lastName;
+                    newUser.picUrl = "";
                     newUser.year = "";
+                    newUser.blurb = "";
                     newUser.male = false;
                     newUser.female = false;
                     newUser.other = false;
