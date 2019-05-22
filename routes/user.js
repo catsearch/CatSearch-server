@@ -171,10 +171,8 @@ router.route('/:id/search')
     .post((req, res) => {
         console.log("POST /:id/search");
         const id = req.params["id"];
-        console.log(req.body.text)
 
         let query = {
-            _id: {$ne: id},
             $or: [
                 {firstName: {'$regex': req.body.text, '$options' : 'i'}},
                 {lastName: {'$regex': req.body.text, '$options' : 'i'}},
@@ -182,6 +180,7 @@ router.route('/:id/search')
             ],
             searching: true
         }
+        if (id && id !== "null") {query._id = {$ne: id}}
 
         User.find(query)
             .sort('signupDate')
