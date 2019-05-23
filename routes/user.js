@@ -184,7 +184,8 @@ router.route('/:id/saveUser')
                         success: true,
                     });
                     user.savedUsers.push(req.body.id);
-                    user.update();
+                    User.update({_id: id},
+                                {$set: {"savedUsers" : user.savedUsers}});
                 }
             })
     })
@@ -208,7 +209,8 @@ router.route('/:id/removeUser')
                 user.savedUsers.filter(function(value,index,arr){
                     return value !== req.body.id;
                 });
-                user.update()
+                User.update({_id: id}, 
+                            {$set: { "savedUsers" : user.savedUsers}});
             }
         })
 })
