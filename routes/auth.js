@@ -50,6 +50,7 @@ router.route('/createAccount')
                     newUser.generateHash(req.body.password);
                     newUser.signupDate = Date();
                     newUser.searching = true;
+                    newUser.savedUsers = [];
                     newUser.save((err, user) => {
                         if (err) {
                             res.send({

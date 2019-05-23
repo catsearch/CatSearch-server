@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     firstName: String,
     lastName: String,
     signupDate: Date,
+    savedUsers: Array,
     blurb: String,
     picUrl: String,
     searching: Boolean,
