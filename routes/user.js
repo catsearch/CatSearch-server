@@ -170,8 +170,9 @@ router.route('/:id/filter')
 router.route('/:id/saveUser')
     .patch((req,res) => {
         console.log("PATCH /:id/saveUser")
+        const id = req.params["id"] 
         User.findOne({_id: id})
-            .exec((err, users) => {
+            .exec((err, user) => {
                 if (err) {
                     console.log("Error in PATCH /:id/saveUser.");
                     res.send({
@@ -182,7 +183,8 @@ router.route('/:id/saveUser')
                     res.send({
                         success: true,
                     });
-                    users.savedUsers.push(req.body.id);
+                    user.savedUsers.push(req.body.id);
+                    user.update();
                 }
             })
     })
@@ -190,8 +192,9 @@ router.route('/:id/saveUser')
 router.route('/:id/removeUser')
 .patch((req,res) => {
     console.log("PATCH /:id/removeUser")
+    const id = req.params["id"] 
     User.findOne({_id: id})
-        .exec((err, users) => {
+        .exec((err, user) => {
             if (err) {
                 console.log("Error in PATCH /:id/removeUser.");
                 res.send({
@@ -202,9 +205,10 @@ router.route('/:id/removeUser')
                 res.send({
                     success: true,
                 });
-                users.savedUsers.filter(function(value,index,arr){
-                    return value === req.body.id;
+                user.savedUsers.filter(function(value,index,arr){
+                    return value !== req.body.id;
                 });
+                user.update()
             }
         })
 })
