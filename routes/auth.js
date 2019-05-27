@@ -22,8 +22,7 @@ router.route('/createAccount')
                 } else {
                     const newUser = new User();
                     newUser.email = req.body.email;
-                    newUser.firstName = req.body.firstName;
-                    newUser.lastName = req.body.lastName;
+                    newUser.name = req.body.name;
                     newUser.picUrl = "";
                     newUser.year = "";
                     newUser.blurb = "";

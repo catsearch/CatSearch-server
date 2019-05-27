@@ -6,7 +6,7 @@ router.route('/')
     .get((req, res) => {
         console.log("GET /user");
         User.find()
-            .sort('firstname')
+            .sort('name')
             .exec((err, users) => {
                 if (err) {
                     console.log("Error retrieving users from database.")
@@ -174,8 +174,7 @@ router.route('/:id/search')
 
         let query = {
             $or: [
-                {firstName: {'$regex': req.body.text, '$options' : 'i'}},
-                {lastName: {'$regex': req.body.text, '$options' : 'i'}},
+                {name: {'$regex': req.body.text, '$options' : 'i'}},
                 {blurb: {'$regex': req.body.text, '$options' : 'i'}}
             ],
             searching: true
