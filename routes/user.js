@@ -99,46 +99,33 @@ router.route('/:id/filter')
         console.log("POST /:id/filter");
         const id = req.params["id"];
 
-        //in each grouping, filter OR by only TRUE results
         let yearFilters = [];
+        for (element of req.body.year) {yearFilters.push({year: element});}
 
         let genderFilters = [];
-        if (req.body.male) {genderFilters.push({male: req.body.male})};
-        if (req.body.female) {genderFilters.push({female: req.body.female})};
-        if (req.body.other) {genderFilters.push({other: req.body.other})};
+        for (element of req.body.gender) {genderFilters.push({gender: element});}
 
         let schoolFilters = [];
-        if (req.body.bienen) {schoolFilters.push({bienen: req.body.bienen})};
-        if (req.body.mccormick) {schoolFilters.push({mccormick: req.body.mccormick})};
-        if (req.body.medill) {schoolFilters.push({medill: req.body.medill})};
-        if (req.body.sesp) {schoolFilters.push({sesp: req.body.sesp})};
-        if (req.body.soc) {schoolFilters.push({soc: req.body.soc})};
-        if (req.body.wcas) {schoolFilters.push({wcas: req.body.wcas})};
+        for (element of req.body.school) {schoolFilters.push({school: element});}
 
-        let locationFilters = [];
-        if (req.body.north) {locationFilters.push({north: req.body.north})};
-        if (req.body.mid) {locationFilters.push({mid: req.body.mid})};
-        if (req.body.south) {locationFilters.push({south: req.body.south})};
+        let areaFilters = [];
+        for (element of req.body.area) {areaFilters.push({area: element});}
 
-        let cleanFilters = [];
-        if (req.body.high) {cleanFilters.push({high: req.body.high})};
-        if (req.body.medium) {cleanFilters.push({medium: req.body.medium})};
-        if (req.body.low) {cleanFilters.push({low: req.body.low})};
+        let cleanlinessFilters = [];
+        for (element of req.body.cleanliness) {cleanlinessFilters.push({cleanliness: element});}
 
         let smokingFilters = [];
-        if (req.body.smoking) {smokingFilters.push({smoking: req.body.smoking})};
-        if (req.body.no) {smokingFilters.push({no: req.body.no})};
+        for (element of req.body.smoking) {smokingFilters.push({smoking: element});}
 
         let musicFilters = [];
-        if (req.body.often) {musicFilters.push({often: req.body.often})};
-        if (req.body.sometimes) {musicFilters.push({sometimes: req.body.sometimes})};
-        if (req.body.never) {musicFilters.push({never: req.body.never})};
+        for (element of req.body.music) {musicFilters.push({music: element});}
 
         let andQuery = [];
+        if (yearFilters.length > 0) {andQuery.push({$or: genderFilters})};
         if (genderFilters.length > 0) {andQuery.push({$or: genderFilters})};
         if (schoolFilters.length > 0) {andQuery.push({$or: schoolFilters})};
-        if (locationFilters.length > 0) {andQuery.push({$or: locationFilters})};
-        if (cleanFilters.length > 0) {andQuery.push({$or: cleanFilters})};
+        if (areaFilters.length > 0) {andQuery.push({$or: areaFilters})};
+        if (cleanlinessFilters.length > 0) {andQuery.push({$or: cleanlinessFilters})};
         if (smokingFilters.length > 0) {andQuery.push({$or: smokingFilters})};
         if (musicFilters.length > 0) {andQuery.push({$or: musicFilters})};
 
@@ -147,10 +134,8 @@ router.route('/:id/filter')
             searching: true, //can't find people that aren't searching
         }
         if (andQuery.length > 0) {query.$and = andQuery};
-        if (req.body.year) {query.year = req.body.year};
         if (id !== null && id !== "null") {query._id = {$ne: id}};
 
-        console.log(query)
         User.find(query)
             .sort('signupDate')
             .exec((err, users) => {

@@ -23,32 +23,9 @@ router.route('/createAccount')
                     const newUser = new User();
                     newUser.email = req.body.email;
                     newUser.name = req.body.name;
-                    newUser.picUrl = "";
-                    newUser.year = "";
-                    newUser.blurb = "";
-                    newUser.male = false;
-                    newUser.female = false;
-                    newUser.other = false;
-                    newUser.bienen = false;
-                    newUser.mccormick = false;
-                    newUser.medill = false;
-                    newUser.sesp = false;
-                    newUser.soc = false;
-                    newUser.wcas = false;
-                    newUser.north = false;
-                    newUser.mid = false;
-                    newUser.south = false;
-                    newUser.high = false;
-                    newUser.medium = false;
-                    newUser.low = false;
-                    newUser.smoking = false;
-                    newUser.no = false;
-                    newUser.often = false;
-                    newUser.sometimes = false;
-                    newUser.never = false;
                     newUser.generateHash(req.body.password);
-                    newUser.signupDate = Date();
-                    newUser.searching = true;
+                    newUser.initializeFields();
+                    
                     newUser.save((err, user) => {
                         if (err) {
                             res.send({
