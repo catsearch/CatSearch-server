@@ -25,7 +25,6 @@ router.route('/createAccount')
                     newUser.name = req.body.name;
                     newUser.generateHash(req.body.password);
                     newUser.initializeFields();
-                    
                     newUser.save((err, user) => {
                         if (err) {
                             res.send({

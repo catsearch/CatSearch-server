@@ -8,6 +8,7 @@ const UserSchema = new Schema({
     name: String,
     signupDate: Date,
     searching: Boolean,
+    savedUsers: Array,
     blurb: String,
     picUrl: String,
     year: String,
@@ -33,6 +34,7 @@ UserSchema.methods.validatePassword = function(password) {
 UserSchema.methods.initializeFields = function() {
     this.signupDate = Date();
     this.searching = true;
+    this.savedUsers = [];
     this.picUrl = "";
     this.year = "";
     this.blurb = "";
