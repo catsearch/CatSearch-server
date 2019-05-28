@@ -15,7 +15,6 @@ router.route('/')
                         message: err
                     });
                 } else {
-                    console.log(users);
                     res.send({
                         success: true,
                         users: users
@@ -157,7 +156,7 @@ router.route('/:id/filter')
 router.route('/:id/saveUser')
     .patch((req,res) => {
         console.log("PATCH /:id/saveUser")
-        const id = req.params["id"] 
+        const id = req.params["id"]
         User.findOne({_id: id})
             .exec((err, user) => {
                 if (err) {
@@ -167,40 +166,73 @@ router.route('/:id/saveUser')
                         message: err
                     });
                 } else {
-                    res.send({
-                        success: true,
-                    });
-                    user.savedUsers.push(req.body.id);
-                    User.update({_id: id},
-                                {$set: {"savedUsers" : user.savedUsers}});
+                    if (user.savedUsers.includes(req.body.id)) {
+                        console.log(`User ${req.body.id} is already saved.`)
+                        res.send({
+                            success: false,
+                            message: "User has already been saved."
+                        })
+                    } else {
+                        user.savedUsers.push(req.body.id);
+                        User.updateOne(
+                            {_id: id},
+                            {$set: {"savedUsers" : user.savedUsers}}
+                        )
+                            .exec((err, user) => {
+                                if (err) {
+                                    console.log("Error in PATCH /:id/saveUser.");
+                                    res.send({
+                                        success: false,
+                                        message: err
+                                    });
+                                } else {
+                                    res.send({
+                                        success: true,
+                                        message: user
+                                    });
+                                }
+                            })
+                    }
                 }
             })
     })
 
-router.route('/:id/removeUser')
-.patch((req,res) => {
-    console.log("PATCH /:id/removeUser")
-    const id = req.params["id"] 
-    User.findOne({_id: id})
-        .exec((err, user) => {
-            if (err) {
-                console.log("Error in PATCH /:id/removeUser.");
-                res.send({
-                    success: false,
-                    message: err
-                });
-            } else {
-                res.send({
-                    success: true,
-                });
-                user.savedUsers.filter(function(value,index,arr){
-                    return value !== req.body.id;
-                });
-                User.update({_id: id}, 
-                            {$set: { "savedUsers" : user.savedUsers}});
-            }
-        })
-})
+router.route('/:id/removeSaved')
+    .patch((req,res) => {
+        console.log("PATCH /:id/removeSaved")
+        const id = req.params["id"] 
+        User.findOne({_id: id})
+            .exec((err, user) => {
+                if (err) {
+                    console.log("Error in PATCH /:id/removeSaved.");
+                    res.send({
+                        success: false,
+                        message: err
+                    });
+                } else {
+                    user.savedUsers = user.savedUsers.filter((value,index,arr) => {
+                        return value !== req.body.id;
+                    });
+                    User.updateOne(
+                        {_id: id}, 
+                        {$set: { "savedUsers" : user.savedUsers}}
+                    )
+                        .exec((err, user) => {
+                            if (err) {
+                                res.send({
+                                    success: false,
+                                    message: err
+                                })
+                            } else {
+                                res.send({
+                                    success: true,
+                                    message: user
+                                })
+                            }
+                        })
+                }
+            })
+    })
 
 router.route('/:id/search')
     .post((req, res) => {
@@ -231,6 +263,15 @@ router.route('/:id/search')
                         users: users
                     });
                 }
+            })
+    })
+
+router.route('/:id/removeSavedUsers')
+    .patch((req, res) => {
+        User.updateOne({_id: req.params["id"]},
+            {$set: {"savedUsers" : []}})
+            .exec((err, user) => {
+                res.send(user)
             })
     })
 
