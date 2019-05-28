@@ -100,6 +100,8 @@ router.route('/:id/filter')
         const id = req.params["id"];
 
         //in each grouping, filter OR by only TRUE results
+        let yearFilters = [];
+
         let genderFilters = [];
         if (req.body.male) {genderFilters.push({male: req.body.male})};
         if (req.body.female) {genderFilters.push({female: req.body.female})};
