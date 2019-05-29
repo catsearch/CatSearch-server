@@ -55,6 +55,28 @@ router.route('/:id')
                 }
             })
     })
+    .put((req, res) => {
+        const id = req.params["id"];
+        console.log("PUT /user/" + id);
+
+        User.findOneAndUpdate(
+            {_id: id},
+            req.body.user
+        )
+            .exec((err, user) => {
+                if (err) {
+                    res.send({
+                        success: false,
+                        message: err
+                    })
+                } else {
+                    res.send({
+                        success: true,
+                        message: "Document Replaced."
+                    })
+                }
+            })
+    })
     .delete((req, res) => {
         const id = req.params["id"];
         console.log("DELETE /user/" + id);
@@ -199,8 +221,8 @@ router.route('/:id/saveUser')
 
 router.route('/:id/removeSaved')
     .patch((req,res) => {
-        console.log("PATCH /:id/removeSaved")
-        const id = req.params["id"] 
+        console.log("PATCH /:id/removeSaved");
+        const id = req.params["id"];
         User.findOne({_id: id})
             .exec((err, user) => {
                 if (err) {
