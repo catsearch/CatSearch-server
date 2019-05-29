@@ -34,7 +34,8 @@ router.route('/createAccount')
                         } else {
                             res.send({
                                 success: true,
-                                message: `Account Created!`
+                                message: `Account Created!`,
+                                _id: user._id
                             });
                         }
                     });
