@@ -18,7 +18,10 @@ const UserSchema = new Schema({
     cleanliness: String,
     smoking: String,
     music: String,
-    //bedtime and wakeup
+    wakeupStart: String,
+    wakeupEnd: String,
+    bedtimeStart: String,
+    bedtimeEnd: String
 });
 
 // generating a hash
@@ -44,6 +47,10 @@ UserSchema.methods.initializeFields = function() {
     this.cleanliness = "";
     this.smoking = "";
     this.music = "";
+    this.wakeupStart = "";
+    this.wakeupEnd = "";
+    this.bedtimeStart = "";
+    this.bedtimeEnd = "";
 }
 
 module.exports = mongoose.model('User', UserSchema);
