@@ -3,7 +3,7 @@ const info = require('../secret.js')
 const config = {
     "dev":{
         "host":"localhost",
-        "database":info["devDatabase"],
+        "database":info["database"],
     },
 };
 
