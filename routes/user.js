@@ -142,7 +142,7 @@ router.route('/:id/filter')
         for (element of req.body.music) {musicFilters.push({music: element});}
 
         let andQuery = [];
-        if (yearFilters.length > 0) {andQuery.push({$or: genderFilters})};
+        if (yearFilters.length > 0) {andQuery.push({$or: yearFilters})};
         if (genderFilters.length > 0) {andQuery.push({$or: genderFilters})};
         if (schoolFilters.length > 0) {andQuery.push({$or: schoolFilters})};
         if (areaFilters.length > 0) {andQuery.push({$or: areaFilters})};
