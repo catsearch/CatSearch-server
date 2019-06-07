@@ -6,7 +6,7 @@ router.route('/')
     .get((req, res) => {
         console.log("GET /user");
         User.find()
-            .sort('name')
+            .sort('signupDate')
             .exec((err, users) => {
                 if (err) {
                     console.log("Error retrieving users from database.")
@@ -99,6 +99,7 @@ router.route('/:id/others')
         const id = req.params["id"];
         
         User.find({_id: {$ne: id}, searching: true})
+            .sort('signupDate')
             .exec((err, users) => {
                 if (err) {
                     console.log("Error in GET /:id/others.");
