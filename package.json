@@ -4,23 +4,35 @@
   "description": "A platform to enable Northwestern students to search for roommates.",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
-    "bcrypt-nodejs": "latest",
-    "body-parser": "^1.18.3",
-    "config": "^3.1.0",
-    "express": "^4.16.4",
-    "isemail": "^3.2.0",
-    "mongodb": "^3.2.3",
-    "mongoose": "^5.5.2",
-    "node": "^11.13.0"
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "config": "^3.2.2",
+    "cookie-parser": "^1.4.4",
+    "cross-env": "^5.2.0",
+    "dirty-chai": "^2.0.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "indicative": "^7.2.0",
+    "jshint": "^2.10.2",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^6.2.0",
+    "mongoose": "^5.6.9",
+    "morgan": "^1.9.1",
+    "node": "^11.15.0",
+    "path": "^0.12.7",
+    "winston": "^3.2.1"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "test": "jshint ./ && mocha --recursive"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cooperbarth/CatSearch.git"
+    "url": "git+https://github.com/catsearch/CatSearch-server.git"
   },
   "keywords": [
     "catsearch"
@@ -28,7 +40,7 @@
   "author": "Cooper Barth",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cooperbarth/CatSearch/issues"
+    "url": "https://github.com/catsearch/CatSearch-server/issues"
   },
-  "homepage": "https://github.com/cooperbarth/CatSearch#readme"
+  "homepage": "https://github.com/catsearch/CatSearch-server#readme"
 }
