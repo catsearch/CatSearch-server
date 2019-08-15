@@ -7,7 +7,7 @@ const logger = require("./src/logger");
 const env = "" + process.env.NODE_ENV;
 logger.info("ENV: " + env);
 
-const config = require('./config/db')["dev" || env];
+const config = require('./config/config')["development" || env];
 const mongoose = require('mongoose');
 mongoose.connect(config.database, {
     useNewUrlParser: true,
