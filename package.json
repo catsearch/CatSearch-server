@@ -11,7 +11,7 @@
     "express": "^4.16.4",
     "isemail": "^3.2.0",
     "mongodb": "^3.2.3",
-    "mongoose": "^5.5.2",
+    "mongoose": "^5.6.9",
     "node": "^11.13.0"
   },
   "devDependencies": {},
