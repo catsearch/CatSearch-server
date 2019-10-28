@@ -7,7 +7,7 @@
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.18.3",
-    "config": "^3.1.0",
+    "config": "^3.2.4",
     "express": "^4.16.4",
     "isemail": "^3.2.0",
     "mongodb": "^3.2.3",
