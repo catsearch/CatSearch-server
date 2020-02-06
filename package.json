@@ -4,7 +4,7 @@
   "description": "A platform to enable Northwestern students to search for roommates.",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.8",
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.18.3",
     "config": "^3.1.0",
