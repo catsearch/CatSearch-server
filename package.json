@@ -10,7 +10,7 @@
     "config": "^3.1.0",
     "express": "^4.16.4",
     "isemail": "^3.2.0",
-    "mongodb": "^3.2.3",
+    "mongodb": "^4.0.0",
     "node": "^12.8.1",
     "mongoose": "^5.6.10"
   },
